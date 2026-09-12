@@ -1,0 +1,72 @@
+name: Update contribution snake
+
+on:
+  schedule:
+    # Every day at 09:17 Asia/Shanghai (01:17 UTC).
+    - cron: "17 1 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/snake.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: contribution-snake-output
+  cancel-in-progress: false
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Generate light and dark contribution snakes
+        uses: Platane/snk/svg-only@d8f6715049803e982ee5ff501b6b9b7d5deeb09b # v3.5.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          outputs: |
+            dist/github-snake.svg?color_snake=%23059669
+            dist/github-snake-dark.svg?palette=github-dark&color_snake=%2339d98a
+
+      - name: Publish SVGs to the output branch
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_TERMINAL_PROMPT: "0"
+        run: |
+          set -euo pipefail
+          test -s "$GITHUB_WORKSPACE/dist/github-snake.svg"
+          test -s "$GITHUB_WORKSPACE/dist/github-snake-dark.svg"
+
+          publish_dir=$(mktemp -d "$RUNNER_TEMP/snake-publish.XXXXXX")
+          trap 'rm -rf "$publish_dir"' EXIT
+          git init --quiet --initial-branch=output "$publish_dir"
+          cd "$publish_dir"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+
+          # Keep authentication out of the remote URL and persistent git config.
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0="http.$GITHUB_SERVER_URL/.extraheader"
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)"
+
+          remote_ref=$(git ls-remote --heads origin refs/heads/output)
+          if [[ -n "$remote_ref" ]]; then
+            git fetch --quiet --depth=1 origin refs/heads/output
+            git checkout --quiet -B output FETCH_HEAD
+          fi
+
+          cp "$GITHUB_WORKSPACE/dist/github-snake.svg" github-snake.svg
+          cp "$GITHUB_WORKSPACE/dist/github-snake-dark.svg" github-snake-dark.svg
+          git add -- github-snake.svg github-snake-dark.svg
+          if git diff --cached --quiet; then
+            echo "Contribution snakes are already up to date."
+            exit 0
+          fi
+
+          git commit --quiet -m "chore: refresh contribution snake"
+          git push origin HEAD:refs/heads/output
