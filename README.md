@@ -1,42 +1,56 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/terminal-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="./assets/terminal-light.svg">
-  <img alt="Hi, I'm Shy. AI graduate student at UCAS. Exploring AI. Building things I want to use." src="./assets/terminal-light.svg" width="100%">
-</picture>
+# Hi, I'm Shy
 
-### `$ ls ./selected-projects`
+中国科学院大学（UCAS）AI 方向研究生。研究 AI，也做一些自己会用的小工具。
 
-**[valshop-daily ↗](https://github.com/Shy7777/valshop-daily)** · `Python` `CLI` `Automation`
+### 项目与开源贡献
 
-无畏契约每日商店查询、图片生成与 Hermes 定时推送。把每天重复做的小事，变成一个命令。
+**[Maskit](https://github.com/xiaYuTian11/maskit)** · Python · 开源贡献
 
-**[hermes-web-ui ↗](https://github.com/Shy7777/hermes-web-ui)** · `TypeScript` `Customized fork`
+为大模型本地脱敏工具修复流式响应和配置保存问题，相关改动已被上游合并。
 
-基于 [Hermes Studio](https://github.com/EKKOLearnAI/hermes-studio) 的个人改动：支持从历史会话恢复对话，并移除广告。
+<details>
+<summary>看看已合并的改动</summary>
 
-### `$ cat ./interests.md`
+- 补齐流式响应里的 token 用量统计。[PR #23](https://github.com/xiaYuTian11/maskit/pull/23)
+- 隔离不同候选回答的还原缓冲，避免内容串扰。[PR #25](https://github.com/xiaYuTian11/maskit/pull/25)
+- 修复连续修改规则时，后一次保存覆盖前一次修改的问题。[PR #26](https://github.com/xiaYuTian11/maskit/pull/26)
 
-- **AI agents** — 探索 Agent 如何使用工具、管理上下文并完成任务。
-- **Everyday automation** — 把自己的实际需求做成可以反复使用的小工具。
-- **Open source** — 阅读源码、动手修改，再把有用的改动分享出来。
+这里展示的是我对上游项目的贡献，项目介绍与使用方式见 [Maskit 仓库](https://github.com/xiaYuTian11/maskit)。
 
-### `$ cat ./contributions.svg`
+</details>
+
+**[hermes-web-ui](https://github.com/Shy7777/hermes-web-ui)** · TypeScript · 定制 Fork
+
+在 [Hermes Studio](https://github.com/EKKOLearnAI/hermes-studio) 的基础上，补上从历史会话恢复对话的功能。
+
+<details>
+<summary>看看我的改动</summary>
+
+- 从历史 session 恢复对话，继续之前的交流。
+- 移除广告，简化日常使用时的界面。
+
+这是基于上游项目的个人修改；完整功能与原作者信息见[项目仓库](https://github.com/Shy7777/hermes-web-ui)。
+
+</details>
+
+### 写代码的日子
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Shy7777/Shy7777/output/github-snake-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Shy7777/Shy7777/output/github-snake.svg">
-  <img alt="Snake animation generated from Shy7777's GitHub contribution graph." src="https://raw.githubusercontent.com/Shy7777/Shy7777/output/github-snake.svg" width="100%">
+  <img alt="由 Shy7777 的 GitHub 贡献图生成的贪吃蛇动画" src="https://raw.githubusercontent.com/Shy7777/Shy7777/output/github-snake.svg" width="100%">
 </picture>
 
 <details>
-<summary><code>$ whoami --more</code></summary>
+<summary>这条蛇是什么？</summary>
 
-I'm **Sun Haoyuan (Shy)**, an AI graduate student at the **University of Chinese Academy of Sciences**.
-
-I enjoy understanding how things work, building tools for everyday problems, and sharing what I learn along the way.
+它会沿着我的 GitHub 贡献图自动移动，吃掉小方格。这是一段由贡献记录生成的动画。
 
 </details>
 
----
+<details>
+<summary>还有一点关于我</summary>
 
-<p align="center"><samp>~/ideas → ~/code</samp></p>
+最近在关注 AI Agent 的工具使用与上下文管理。喜欢读源码、改工具，把遇到的小问题做成能反复使用的东西。
+
+</details>
