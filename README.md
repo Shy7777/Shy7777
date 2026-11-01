@@ -1,4 +1,8 @@
-# Hi, I'm Shy
+# Hi, I'm Haoyuan Sun (Shy)
+
+**Affiliation:** University of Chinese Academy of Sciences (UCAS)  
+**Position:** Graduate Student in Artificial Intelligence  
+**Email:** [sunhaoyuan25@mails.ucas.ac.cn](mailto:sunhaoyuan25@mails.ucas.ac.cn)
 
 中国科学院大学（UCAS）AI 方向研究生。研究 AI，也做一些自己会用的小工具。
 
